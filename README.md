@@ -29,7 +29,8 @@ create your task class by implementing ISchedulerTask interface
                 return Task.Run(() =>
                 {
                     // your code...
-                });
+                    
+                }, cancellationToken);
             }
         }
     }
