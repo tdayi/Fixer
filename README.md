@@ -42,7 +42,7 @@ Add your scheduler and task class to your .Net Core Api project with Dependency 
     services.AddSingleton<ISchedulerTask, FixerSampleTask>();
     services.AddScheduler();
 
-## # NCrontab (Crontab for .NET)
+## NCrontab (Crontab for .NET)
 
 Fixer, uses the open source NCrontab library for scheduler task time pattern
 
