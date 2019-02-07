@@ -1,4 +1,4 @@
-# Fixer: .Net Core Lightweight Scheduler Task Library
+# .Net Core Lightweight Scheduler Task Library
 
 Fixer contains the .Net Core Api support for creating custom tasks with IHostedService interface and uses the NCrontab for the scheduler time pattern.
 
