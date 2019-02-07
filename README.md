@@ -48,3 +48,7 @@ Add your scheduler and task class to your .Net Core Api project with Dependency 
 Fixer, uses the open source NCrontab library for scheduler task time pattern
 
 http://www.raboof.com/projects/ncrontab/
+
+Examples of crontab expressions
+
+https://code.google.com/archive/p/ncrontab/wikis/CrontabExamples.wiki
