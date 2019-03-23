@@ -12,7 +12,7 @@ namespace Fixer.Test
         public void AddSchedulerTest()
         {
             IServiceCollection services = new ServiceCollection();
-            services.AddScheduler();
+            services.AddScheduler(null);
 
             var serviceProvider = services.BuildServiceProvider();
             var fixerSchedulerHostedService = serviceProvider.GetService<IHostedService>();

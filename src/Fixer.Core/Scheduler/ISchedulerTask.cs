@@ -5,7 +5,6 @@ namespace Fixer.Core.Scheduler
 {
     public interface ISchedulerTask
     {
-        string TimePattern { get; }
         Task ExecuteAsync(CancellationToken cancellationToken);
     }
 }

@@ -7,8 +7,6 @@ namespace Fixer.Test.Scheduler.Host.SchedulerTask
 {
     public class SampleTask : ISchedulerTask
     {
-        public string TimePattern => "* * * * *";
-
         public Task ExecuteAsync(CancellationToken cancellationToken)
         {
             return Task.Run(() =>

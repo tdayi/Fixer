@@ -1,4 +1,5 @@
-﻿using Fixer.Core.Scheduler;
+﻿using Fixer.Core.Configuration;
+using Fixer.Core.Scheduler;
 using NCrontab;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,29 @@ namespace Fixer.Hosting
     {
         private readonly List<FixerSchedulerTaskModel> fixerSchedulerTaskModels = new List<FixerSchedulerTaskModel>();
 
-        public FixerSchedulerHostedService(IEnumerable<ISchedulerTask> scheduledTasks)
+        public FixerSchedulerHostedService(
+            IFixerConfiguration fixerConfiguration,
+            IEnumerable<ISchedulerTask> scheduledTasks)
         {
             var currentTime = DateTime.UtcNow;
 
             foreach (var scheduledTask in scheduledTasks)
             {
+                var taskConfig = fixerConfiguration.Tasks.Where(config => config.TaskName == scheduledTask.GetType().Name).FirstOrDefault();
+                if (taskConfig == null || !taskConfig.Status)
+                {
+                    continue;
+                }
+
+                var crontabSchedule = CrontabSchedule.Parse(taskConfig.TimePattern);
+
                 fixerSchedulerTaskModels.Add(new FixerSchedulerTaskModel
                 {
-                    crontabSchedule = CrontabSchedule.Parse(scheduledTask.TimePattern),
+                    crontabSchedule = crontabSchedule,
                     schedulerTask = scheduledTask,
-                    nextRunTime = currentTime
+                    nextRunTime = taskConfig.IsRunImmediately
+                                ? currentTime
+                                : crontabSchedule.GetNextOccurrence(currentTime)
                 });
             }
         }
